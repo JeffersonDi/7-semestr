@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Shopping.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,7 @@ namespace Shopping.Infrastructure
         {
 
         }
+
+        public DbSet<Page> Pages { get; set; }
     }
 }

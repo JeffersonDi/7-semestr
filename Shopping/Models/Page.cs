@@ -9,15 +9,18 @@ namespace Shopping.Models
     public class Page
     {
         public int Id { get; set; }
-        [Required]
-        [Display(Name ="Заголовок")]
+
+        [Required(ErrorMessage ="Поле 'Заголовок' пустое"), MinLength(2, ErrorMessage = "Минимальная длина Заголовка 2 символа"), 
+            Display(Name = "Заголовок")]
         public string Title { get; set; }
-        [Required]
+
         [Display(Name = "Сокращение")]
         public string Slug { get; set; }
-        [Required]
-        [Display(Name = "Содержание")]
+
+        [Required(ErrorMessage = "Поле 'Содержание' пустое"), MinLength(4, ErrorMessage = "Минимальная длина Заголовка 4 символа"), 
+            Display(Name = "Содержание")]
         public string Content { get; set; }
+
         public int Sorting { get; set; }
     }
 }

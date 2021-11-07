@@ -103,7 +103,7 @@ namespace Shopping.Areas.Admin.Controllers
                 context.Update(page);
                 await context.SaveChangesAsync();
 
-                TempData["Success"] = "Запись успешно добавлена!";
+                TempData["Success"] = "Запись успешно отредоктирована!";
 
                 return RedirectToAction("Edit", new { id = page.Id });
             }

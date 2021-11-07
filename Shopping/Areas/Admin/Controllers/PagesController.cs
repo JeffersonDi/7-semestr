@@ -144,6 +144,7 @@ namespace Shopping.Areas.Admin.Controllers
                 await context.SaveChangesAsync();
                 count++;
             }
+
             return Ok();
         }
     }

@@ -25,9 +25,15 @@ namespace Shopping.Areas.Admin.Controllers
         }
 
         //GET /admin/cars
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int p = 1)
         {
-            return View(await context.Cars.OrderByDescending(x => x.Id).Include(x => x.Category).ToListAsync());
+            int pageSize = 6;
+            var cars = context.Cars.OrderByDescending(x => x.Id).Include(x => x.Category).Skip((p - 1) * pageSize).Take(pageSize);
+            ViewBag.PageNumber = p;
+            ViewBag.PageRange = pageSize;
+            ViewBag.TotalPages = (int)Math.Ceiling((decimal)context.Cars.Count() / pageSize);
+
+            return View(await cars.ToListAsync());
         }
 
         //GET /admin/cars/create

@@ -10,14 +10,14 @@ namespace Shopping.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage ="Поле 'Заголовок' пустое"), MinLength(2, ErrorMessage = "Минимальная длина Заголовка 2 символа"), 
+        [Required(ErrorMessage ="Поле 'Заголовок' пустое"), MinLength(2, ErrorMessage = "Минимальная длина 2 символа"), 
             Display(Name = "Заголовок")]
         public string Title { get; set; }
 
         [Display(Name = "Сокращение")]
         public string Slug { get; set; }
 
-        [Required(ErrorMessage = "Поле 'Содержание' пустое"), MinLength(4, ErrorMessage = "Минимальная длина Заголовка 4 символа"), 
+        [Required(ErrorMessage = "Поле 'Содержание' пустое"), MinLength(4, ErrorMessage = "Минимальная длина 4 символа"), 
             Display(Name = "Содержание")]
         public string Content { get; set; }
 

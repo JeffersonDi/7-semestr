@@ -10,7 +10,7 @@ namespace Shopping.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Поле 'Имя' пустое"), MinLength(2, ErrorMessage = "Минимальная длина Имени 2 символа"),
+        [Required(ErrorMessage = "Поле 'Имя' пустое"), MinLength(2, ErrorMessage = "Минимальная длина 2 символа"),
              Display(Name = "Имя")]
         [RegularExpression(@"^\D+$", ErrorMessage = "Разрешены только буквы")]
         public string Name { get; set; }

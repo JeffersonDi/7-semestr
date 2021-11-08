@@ -17,5 +17,6 @@ namespace Shopping.Infrastructure
 
         public DbSet<Page> Pages { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Car> Cars { get; set; }
     }
 }

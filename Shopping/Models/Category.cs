@@ -12,7 +12,7 @@ namespace Shopping.Models
 
         [Required(ErrorMessage = "Поле 'Имя' пустое"), MinLength(2, ErrorMessage = "Минимальная длина 2 символа"),
              Display(Name = "Имя")]
-        [RegularExpression(@"^\D+$", ErrorMessage = "Разрешены только буквы")]
+        //[RegularExpression(@"^\D+$", ErrorMessage = "Разрешены только буквы")]
         public string Name { get; set; }
         [Display(Name = "Сокращение")]
         public string Slug { get; set; }

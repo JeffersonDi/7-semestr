@@ -9,7 +9,7 @@ using Shopping.Infrastructure;
 namespace Shopping.Migrations
 {
     [DbContext(typeof(ShoppingContext))]
-    [Migration("20211108060758_ThirdCreate")]
+    [Migration("20211108064322_ThirdCreate")]
     partial class ThirdCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,7 +41,7 @@ namespace Shopping.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Pricee")
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Slug")

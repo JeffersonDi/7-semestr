@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Shopping.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -22,14 +24,19 @@ namespace Shopping.Models
              Display(Name = "Описание")]
         public string Description { get; set; }
 
-        [Column(TypeName ="decimal(18,2)")]
-        public decimal Pricee { get; set; }
+        [Column(TypeName ="decimal(18,2)"), Display(Name = "Цена")]
+        public decimal Price { get; set; }
 
+        [Display(Name = "Категория"), Range(1,int.MaxValue, ErrorMessage ="Вы должны выбрать категорию")]
         public int CategoryId { get; set; }
 
+        [Display(Name = "Изображение")]
         public string Image { get; set; }
 
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
+
+        [NotMapped, FileExtension]
+        public IFormFile ImageUpload { get; set; }
     }
 }

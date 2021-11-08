@@ -86,5 +86,17 @@ namespace Shopping.Areas.Admin.Controllers
 
             return View(car);
         }
+
+        //GET /admin/cars/details/5
+        public async Task<IActionResult> Details(int id)
+        {
+            Car car = await context.Cars.Include(x => x.Category).FirstOrDefaultAsync(x => x.Id == id);
+            if (car == null)
+            {
+                return NotFound();
+            }
+
+            return View(car);
+        }
     }
 }

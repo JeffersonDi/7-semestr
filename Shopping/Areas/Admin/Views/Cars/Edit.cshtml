@@ -1,0 +1,87 @@
+﻿@model Car
+
+@{
+    ViewData["Title"] = "Edit Car";
+}
+
+<h1>Редактирование</h1>
+
+<div class="row">
+    <div class="col-md-10">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="Image" />
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label">Категория</label>
+                <select asp-for="CategoryId" asp-items="@ViewBag.CategoryId" class="form-control">
+                    <option value="0">Выберете категорию</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Image" class="control-label">Текущее изображение</label>
+                <img src="~/media/cars/@Model.Image" alt="" width="200"/>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Image" class="control-label">Новое изображение</label>
+                <input asp-for="ImageUpload" class="form-control" />
+                <img src="" id="imgpreview" alt="" class="pt-2" />
+                <span asp-validation-for="ImageUpload" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Изменить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Обратно к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        CKEDITOR.replace("Description");
+
+        $("#ImageUpload").change(function () {
+            readURL(this);
+        });
+
+        // taken from Lenard Gunda (see reference section)
+        $.validator.methods.number = function (value, element) {
+            // notice additional backslashes to escape formats
+            return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:[\s\.,]\d{3})+)(?:[\.,]\d+)?$/.test(value);
+        }
+
+        $.validator.methods.range = function (value, element, param) {
+            var globalizedValue = value.replace(",", ".");
+            return this.optional(element) || (globalizedValue >= param[0] && globalizedValue <= param[1]);
+        }
+    </script>
+
+}

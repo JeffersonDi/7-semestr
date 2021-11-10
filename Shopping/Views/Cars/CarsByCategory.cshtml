@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Car>
+
+@{
+    ViewData["Title"] = "Cars";
+}
+
+<h1 class="display-4 pb-5">@ViewBag.CategoryName</h1>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-4">
+            <div class="ajaxbg d-none">
+                <img src="~/images/ajax-loader.gif" />
+                <p class="lead alert alert-success text-center">
+                    Автомобиль был добавлен!
+                </p>
+            </div>
+
+            <img src="~/media/cars/@item.Image" class="img-fluid" alt="" />
+            <h4>@item.Name</h4>
+            <div>
+                @Html.Raw(item.Description)
+            </div>
+            <p>
+                @item.Price.ToString("c")
+            </p>
+            <p>
+                <a asp-controller="Cart" asp-action="Add" asp-route-id="@item.Id" data-id="@item.Id" class="btn btn-primary addToCart">Добавить в корзину</a>
+            </p>
+        </div>
+    }
+    @if (1 < ViewBag.TotalPages)
+    {
+        <div class="d-flex w-100 justify-content-center">
+            <pagination page-count="@ViewBag.TotalPages" page-target="/cars/@ViewBag.CategorySlug" page-number="@ViewBag.PageNumber" page-range="@ViewBag.PageRange"></pagination>
+        </div>
+    }
+
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $("a.addToCart").click(function (e) {
+                e.preventDefault();
+
+                let id = $(this).data("id");
+
+                $.get('/cart/add/' + id, {}, function (data) {
+                    $("div.smallcart").html(data);
+                });
+            });
+        });
+    </script>
+}

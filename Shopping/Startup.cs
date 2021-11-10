@@ -25,6 +25,12 @@ namespace Shopping
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMemoryCache();
+            services.AddSession(options => 
+            {
+                //options.IdleTimeout = TimeSpan.FromSeconds(2);
+                //options.IdleTimeout = TimeSpan.FromDays(2);
+            });
             services.AddControllersWithViews();
 
             services.AddDbContext<ShoppingContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ShoppingContext")));
@@ -48,10 +54,24 @@ namespace Shopping
 
             app.UseRouting();
 
+            app.UseSession();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    "pages",
+                    "{slug?}",
+                    defaults: new { controller = "Pages", action = "Page" }
+                );
+
+                endpoints.MapControllerRoute(
+                    "cars",
+                    "cars/{categorySlug}",
+                    defaults: new { controller = "Cars", action = "CarsByCategory" }
+                );
+
                 endpoints.MapControllerRoute(
                     name: "areas",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"

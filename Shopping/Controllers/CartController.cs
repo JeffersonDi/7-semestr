@@ -112,7 +112,9 @@ namespace Shopping.Controllers
         {
             HttpContext.Session.Remove("Cart");
 
-            return RedirectToAction("Index");
+            //return RedirectToAction("Page", "Pages");
+            //return Redirect("/Cars");
+            return Redirect(Request.Headers["Referer"].ToString());//Возвращает на ту же страницу где была нажата кнопка
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿@model CartViewModel
 
 @{
-    ViewData["Title"] = "Cart";
+    ViewData["Title"] = "Cart Overview";
 }
 
 
@@ -10,42 +10,64 @@
 {
     <h1>Корзина</h1>
 
-   <table class="table">
-       <tr>
-           <th>Автомобиль</th>
-           <th>Количество</th>
-           <th></th>
-           <th>Цена</th>
-           <th>Итог</th>
-       </tr>
-       @foreach(var item in Model.CartItems)
-       {
-           <tr>
-               <td>@item.CarName</td>
-               <td>@item.Quantity</td>
-               <td>
-                   <a asp-action="Add" asp-route-id="@item.CarId" class="btn btn-sm btn-primary">+</a>
-                   <a asp-action="Decrease" asp-route-id="@item.CarId" class="btn btn-sm btn-success">-</a>
-                   <a asp-action="Remove" asp-route-id="@item.CarId" class="btn btn-sm btn-danger">Удалить</a>
-               </td>
-               <td>@item.Price.ToString("C")</td>
-               <td>@Model.CartItems.Where(x => x.CarId == item.CarId).Sum(x => x.Quantity * x.Price).ToString("C")</td>
-           </tr>
-        }
-       <tr>
-           <td class="text-right" colspan="4">Grand Total: @Model.GrandTotal.ToString("C")</td>
-       </tr>
-       <tr>
-           <td class="text-right" colspan="4">
-               <a asp-action="Clear" class="btn btn-danger">Очистить корзину</a>
-               <a href="#" class="btn btn-primary">Оформить</a>
-           </td>
-       </tr>
-   </table>
+    <div class="cartWrapper">
+        <div class="cartbg d-none">
+            <h3 class="text-center">Redirecting you to paypal...</h3>
+            <img src="~/images/ajax-loader.gif" />
+        </div>
+        <table class="table">
+            <tr>
+                <th>Автомобиль</th>
+                <th>Количество</th>
+                <th></th>
+                <th>Цена</th>
+                <th>Итог</th>
+            </tr>
+            @foreach (var item in Model.CartItems)
+            {
+                <tr>
+                    <td>@item.CarName</td>
+                    <td>@item.Quantity</td>
+                    <td>
+                        <a asp-action="Add" asp-route-id="@item.CarId" class="btn btn-sm btn-primary">+</a>
+                        <a asp-action="Decrease" asp-route-id="@item.CarId" class="btn btn-sm btn-success">-</a>
+                        <a asp-action="Remove" asp-route-id="@item.CarId" class="btn btn-sm btn-danger">Удалить</a>
+                    </td>
+                    <td>@item.Price.ToString("C")</td>
+                    <td>@Model.CartItems.Where(x => x.CarId == item.CarId).Sum(x => x.Quantity * x.Price).ToString("C")</td>
+                </tr>
+            }
+            <tr>
+                <td class="text-right" colspan="4">Grand Total: @Model.GrandTotal.ToString("C")</td>
+            </tr>
+            <tr>
+                <td class="text-right" colspan="4">
+                    <a asp-action="Clear" class="btn btn-danger">Очистить корзину</a>
+                    <a href="#" class="btn btn-primary checkout">Оформить</a>
+                </td>
+            </tr>
+        </table>
+    </div>
 }
 else
 {
     <h3 class="display-4 text-center">Ваша корзина пуста</h3>
 }
 
-<partial name="~/Views/Cart/_PayPalPartial.cshtml" for="CartItems"/>
+<partial name="~/Views/Cart/_PayPalPartial.cshtml" for="CartItems" />
+
+@section Scripts {
+    <script>
+        $(function () {
+            $("a.checkout").click(function (e) {
+                e.preventDefault();
+
+                $("div.cartbg").removeClass("d-none");
+
+                $.get("/cart/clear/", {}, function () {
+                    $("form.paypalform").submit();
+                });
+            });
+        });
+    </script>
+}

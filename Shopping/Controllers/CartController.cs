@@ -116,7 +116,8 @@ namespace Shopping.Controllers
             //return Redirect("/Cars");
             if (HttpContext.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
             {
-                return Redirect(Request.Headers["Referer"].ToString());
+                return Redirect("/Cars");
+                //return Redirect(Request.Headers["Referer"].ToString());
             }
             return Ok();
             //return Redirect(Request.Headers["Referer"].ToString());//Возвращает на ту же страницу где была нажата кнопка

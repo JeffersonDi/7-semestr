@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Shopping.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Shopping.Infrastructure
 {
-    public class ShoppingContext : DbContext //CmsShoppingCartContext=>ShoppingContext
+    public class ShoppingContext : IdentityDbContext<AppUser> //CmsShoppingCartContext=>ShoppingContext
     {
         public ShoppingContext(DbContextOptions<ShoppingContext> options)
             :base(options)

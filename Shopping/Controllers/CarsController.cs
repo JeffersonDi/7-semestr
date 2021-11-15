@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shopping.Infrastructure;
 using Shopping.Models;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Shopping.Controllers
 {
+    [Authorize]
     public class CarsController : Controller
     {
         private readonly ShoppingContext context;

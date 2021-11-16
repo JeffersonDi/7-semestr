@@ -11,7 +11,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Shopping</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Tesla Motors</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -23,9 +23,15 @@
                             <li class="nav-item">
                                 <a asp-controller="Account" asp-action="Edit" class="btn btn-success btn-primary">Мой аккаунт</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item ml-1">
                                 <a asp-controller="Account" asp-action="Logout" class="btn btn-success btn-danger ml-1">Привет, @User.Identity.Name, Выйти</a>
                             </li>
+                            @if (User.IsInRole("admin") || User.IsInRole("editor"))
+                            {
+                                <li class="nav-item ml-1">
+                                    <a asp-area="Admin" asp-controller="Pages" asp-action="Index" class="btn btn-success ml-1">Админка</a>
+                                </li>
+                            }
                         }
                         else
                         {

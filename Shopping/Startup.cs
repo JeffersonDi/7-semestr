@@ -33,6 +33,9 @@ namespace Shopping
                 //options.IdleTimeout = TimeSpan.FromSeconds(2);
                 //options.IdleTimeout = TimeSpan.FromDays(2);
             });
+
+            services.AddRouting(options => options.LowercaseUrls = true);//Все URL адреса строчные
+
             services.AddControllersWithViews();
 
             services.AddDbContext<ShoppingContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ShoppingContext")));

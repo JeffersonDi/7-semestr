@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Shopping.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class CarsController : Controller
     {
         private readonly ShoppingContext context;

@@ -76,10 +76,16 @@ namespace Shopping
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
+                //endpoints.MapControllerRoute(
+                //    "pages",
+                //    "{slug?}",
+                //    defaults: new { controller = "Pages", action = "Page" }
+                //);
+
+                endpoints.MapControllerRoute(//√À¿¬Õ¿ﬂ
                     "pages",
                     "{slug?}",
-                    defaults: new { controller = "Pages", action = "Page" }
+                    defaults: new { controller = "Cars", action = "CarsByCategory" }
                 );
 
                 endpoints.MapControllerRoute(

@@ -21,13 +21,29 @@ namespace Shopping.Controllers
         }
 
         //GET /cars
-        public async Task<IActionResult> Index(int p = 1)
+        public async Task<IActionResult> Index(string searchString, int p = 1)
+        //public async Task<IActionResult> Index(string searchString, int? page) 
         {
             int pageSize = 6;
             var cars = context.Cars.OrderByDescending(x => x.Id).Skip((p - 1) * pageSize).Take(pageSize);
             ViewBag.PageNumber = p;
             ViewBag.PageRange = pageSize;
             ViewBag.TotalPages = (int)Math.Ceiling((decimal)context.Cars.Count() / pageSize);
+
+            //НЕДОДЕЛАННЫЙ ПОИСК
+            //int pageSize = 6;
+
+            //var cars = context.Cars.OrderByDescending(x => x.Id)
+            //                       .Skip((int)((p - 1) * pageSize)).Take(pageSize);
+
+            //if (!String.IsNullOrEmpty(searchString))
+            //{
+            //    cars = cars.Where(x => x.Name == searchString);
+            //}
+
+            //ViewBag.PageNumber = p;
+            //ViewBag.PageRange = pageSize;
+            //ViewBag.TotalPages = (int)Math.Ceiling((decimal)context.Cars.Where(x => x.Name == searchString).Count() / pageSize);
 
             return View(await cars.ToListAsync());
         }
@@ -41,9 +57,9 @@ namespace Shopping.Controllers
 
             int pageSize = 6;
             var cars = context.Cars.OrderByDescending(x => x.Id)
-                .Where(x => x.CategoryId == category.Id)
-                .Skip((p - 1) * pageSize)
-                .Take(pageSize);
+                                   .Where(x => x.CategoryId == category.Id)
+                                   .Skip((p - 1) * pageSize)
+                                   .Take(pageSize);
 
             ViewBag.PageNumber = p;
             ViewBag.PageRange = pageSize;
